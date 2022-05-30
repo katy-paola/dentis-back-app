@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  cedula    String
+  telefono  String
+  rol       Role     @default(PACIENTE)
+  clave     String
+  createdAt DateTime @default(now()) //momento en que se creó
+  updatedAt DateTime @updatedAt
+  citas     Cita[]
+}
+
+enum Role {
+  PACIENTE
+  ADMIN
+  SECRETARIO
+}
+
+model Cita {
+  id         Int      @id @default(autoincrement())
+  idPaciente Int
+  paciente   Usuario  @relation(fields: [idPaciente], references: [id])
+  fechaHora  DateTime
+  estado     Status
+  motivo     String
+  createdAt  DateTime @default(now()) //momento en que se creó
+  updatedAt  DateTime @updatedAt
+}
+
+enum Status {
+  AGENDADA
+  REPROGRAMADA
+  CANCELADA
+  COMPLETADA
+}
