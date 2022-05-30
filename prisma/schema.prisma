@@ -36,6 +36,7 @@ model Cita {
   fechaHora  DateTime
   estado     Status
   motivo     String
+  solicitud  String?
   createdAt  DateTime @default(now()) //momento en que se creó
   updatedAt  DateTime @updatedAt
 }

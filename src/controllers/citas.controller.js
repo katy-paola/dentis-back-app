@@ -37,7 +37,7 @@ export const createCita = async (req, res) => {
 //reprogramar o cancelar una cita
 export const updateCita = async (req, res) => {
     // desestructuración de los datos
-    const { fechaHora, estado, motivo } = req.body
+    const { fechaHora, estado, motivo, solicitud } = req.body
     const id = req.params.id
     const citaActualizada = await prisma.cita.update({
         where: { id: parseInt(id) },
@@ -45,6 +45,7 @@ export const updateCita = async (req, res) => {
             fechaHora: fechaHora || undefined,
             estado: estado || undefined,
             motivo: motivo || undefined,
+            solicitud: solicitud || undefined,
         },
     })
 
