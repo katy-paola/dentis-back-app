@@ -1,5 +1,4 @@
 import prisma from '../lib/prisma.js'
-import { exclude } from '../utils/removePassword.js'
 
 export const getUsuarios = async (req, res) => {
     const usuarios = await prisma.usuario.findMany({
@@ -26,8 +25,7 @@ export const getUsuario = async (req, res) => {
         },
     })
 
-    const usuarioSinClave = exclude(usuario, 'clave')
-    res.json(usuarioSinClave)
+    res.json(usuario)
 }
 
 export const createUsuario = async (req, res) => {
@@ -37,8 +35,7 @@ export const createUsuario = async (req, res) => {
         data: req.body,
     })
 
-    const usuarioSinClave = exclude(nuevoUsuario, 'clave')
-    res.json(usuarioSinClave)
+    res.json(nuevoUsuario)
 }
 
 export const updateUsuario = async (req, res) => {
@@ -48,8 +45,7 @@ export const updateUsuario = async (req, res) => {
         data: req.body,
     })
 
-    const usuarioSinClave = exclude(usuarioActualizado, 'clave')
-    res.json(usuarioSinClave)
+    res.json(usuarioActualizado)
 }
 
 export const deleteUsuario = async (req, res) => {
@@ -70,6 +66,5 @@ export const getCedula = async (req, res) => {
         },
     })
 
-    const usuarioSinClave = exclude(usuario, 'clave')
-    res.json(usuarioSinClave)
+    res.json(usuario)
 }
