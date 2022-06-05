@@ -8,6 +8,7 @@ import {
     getCitaByDay,
 } from '../controllers/citas.controller.js'
 
+/*  Creación de una nueva instancia de la clase Router. */
 const router = Router()
 
 //obtener todas las citas

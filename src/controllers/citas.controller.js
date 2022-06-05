@@ -1,10 +1,21 @@
 import prisma from '../lib/prisma.js'
 
+/**
+ * Es una función que utiliza el cliente Prisma para consultar la base de datos para todos los registros en la tabla Cita
+ * y luego los devuelve como una respuesta JSON
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const getCitas = async (req, res) => {
     const citas = await prisma.cita.findMany()
     res.json(citas)
 }
 
+/**
+ * Obtiene una cita de la base de datos utilizando el identificador pasado en la solicitud.
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const getCita = async (req, res) => {
     const id = req.params.id
     const cita = await prisma.cita.findFirst({
@@ -14,6 +25,11 @@ export const getCita = async (req, res) => {
     res.json(cita)
 }
 
+/**
+ * Crea una nueva cita en la base de datos y devuelve la nueva cita.
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const createCita = async (req, res) => {
     // desestructuración de los datos
     const { idPaciente, fechaHora, estado, motivo } = req.body
@@ -34,7 +50,11 @@ export const createCita = async (req, res) => {
     res.json(nuevaCita)
 }
 
-//reprogramar o cancelar una cita
+/**
+ * Actualiza una cita en la base de datos.
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const updateCita = async (req, res) => {
     // desestructuración de los datos
     const { fechaHora, estado, motivo, solicitud } = req.body
@@ -52,6 +72,11 @@ export const updateCita = async (req, res) => {
     res.json(citaActualizada)
 }
 
+/**
+ * Elimina una cita de la base de datos.
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const deleteCita = async (req, res) => {
     const id = req.params.id
     const citaBorrada = await prisma.cita.delete({
@@ -61,7 +86,12 @@ export const deleteCita = async (req, res) => {
     res.json(citaBorrada)
 }
 
-//buscar citas por fecha
+/**
+ * Toma una fecha del cuerpo de la solicitud, encuentra todas las citas en la base de datos y
+ * devuelve las que coinciden con la fecha
+ * @param req - El objeto de la solicitud.
+ * @param res - El objeto de respuesta.
+ */
 export const getCitaByDay = async (req, res) => {
     //desestructuración de los datos
     const { fecha } = req.body
